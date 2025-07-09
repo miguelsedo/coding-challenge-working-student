@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 
 import { query } from './db/index.js';
+import authRoutes from './routes/auth.js';
+import ticketRoutes from './routes/tickets.js';
 
 dotenv.config();
 const app = express();
@@ -17,7 +19,9 @@ app.get('/ping', (_, res) => {
   res.json({ message: 'pong' });
 });
 
-// TODO: Implement Ticket CRUD endpoints (GET, POST, PATCH, DELETE)
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api', ticketRoutes);
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
